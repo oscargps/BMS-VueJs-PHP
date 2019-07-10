@@ -14,19 +14,19 @@ switch ($method) {
       break;
     case 'POST':
     $mode = $_POST['mode'];
-      $nit = $_POST["id"];
+      $id = $_POST["id"];
       $name= $_POST["name"];
-      $contacto= $_POST["phone"];
-      $dir = $_POST["dir"];
+      $cargo= $_POST["cargo"];
+      $super = $_POST["super"];
       if ($mode=="add") {
-        $sql = "insert into users (id_cliente, name_cliente, id, contacto, direccion) values ('$id', '$name', '$id', '$contacto', '$dir')";
+        $sql = "insert into users (id_user, nombre,cargo, super, password) values ('$id', '$name', '$cargo', '$super', $id)";
       }else{
-        $sql = "update users set name_cliente= '$name', contacto='$contacto', direccion='$dir' where id= '$id' ";
+        $sql = "update users set nombre= '$name', cargo='$cargo', super='$super' where id_user= '$id' ";
       }
       break;
     case 'DELETE':
       $id=$_GET['id'];
-      $sql = "DELETE  from users  where id_cliente='$id'";
+      $sql = "DELETE  from users  where id_user='$id'";
 }
 $result = pg_query($conn, $sql);
 if (!$result) {
@@ -40,9 +40,10 @@ if ($method == 'GET') {
       $json[]=array(
         'id'=>$row[0],
           'name'=>$row[1],
-          'id'=>$row[2],
-          'tel'=>$row[3],
-          'dir'=>$row[4]
+          'cargo'=>$row[2],
+            'super'=> ($row[3] == 't')? true:false
+
+
 
       );
       //echo $row[0];

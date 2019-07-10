@@ -2,19 +2,19 @@
   <b-container fluid>
     <!-- User Interface controls -->
     <b-row>
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Filtrar" class="mb-0">
-          <b-input-group>
-            <b-form-input v-model="filter"  placeholder="Buscar..."></b-form-input>
-            <b-input-group-append>
-              <b-button variant="primary" :disabled="!filter"  @click="filter = ''">Limpiar</b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
+        <b-col md="6" class="my-1">
+          <b-form-group label-cols-sm="3" label="Filtrar" class="mb-0">
+            <b-input-group>
+              <b-form-input v-model="filter" placeholder="Buscar.."></b-form-input>
+              <b-input-group-append>
+                <b-button :disabled="!filter" :variant="primary" @click="filter = ''">Limpiar</b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
 
-      <b-col md="6" class="my-1">
-        <b-form-group label-cols-sm="3" label="Mostrar" class="mb-0">
+      <b-col md="6" class="">
+        <b-form-group label-cols-sm="3" label="Mostrar" class="mb-1">
           <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
         </b-form-group>
       </b-col>
@@ -31,9 +31,12 @@
       :filter="filter"
       @filtered="onFiltered"
     >
+    <template v-if="user" slot="super" slot-scope="row">
+     {{ row.item.super ? 'Si' : 'No' }}
+   </template>
       <template slot="actions" slot-scope="row">
-        <b-button size="sm" variant="primary" @click='clickEdit(row.item.nit)' >Editar </b-button>
-        <b-button size="sm" variant="danger" @click='clickDelete(row.item.nit)' >Eliminar </b-button>
+        <b-button size="sm" variant="primary" @click='clickEdit(row.item.id)' >Editar </b-button>
+        <b-button size="sm" variant="danger" @click='clickDelete(row.item.id)' >Eliminar </b-button>
       </template>
 
     </b-table>
@@ -92,7 +95,8 @@ import axios from 'axios';
         type: Array
       },
       clickDelete: Function,
-      clickEdit: Function
+      clickEdit: Function,
+      user:false
     },
     methods: {
       getData(){
@@ -109,3 +113,6 @@ import axios from 'axios';
 
   }
 </script>
+<style lang="css">
+
+</style>

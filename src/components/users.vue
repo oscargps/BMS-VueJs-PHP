@@ -6,7 +6,7 @@
         <input type="image" class="refresh float-right" id="add" @click="toggle()" src="static/icons/agregar-usuario.png" title="Añadir Usuario" />
       </div>
       <div class="card-body" id="users">
-        <tableTemplate v-bind:serv='url' v-bind:field="fields" :clickDelete="deleteUser" :clickEdit="editUser" ref="table" />
+        <tableTemplate v-bind:serv='url' v-bind:user="true" v-bind:field="fields" :clickDelete="deleteUser" :clickEdit="editUser" ref="table" />
       </div>
     </div>
     <div class="row align-items-center" id="form" v-if="showName">
@@ -17,10 +17,7 @@
               <b-input type="text" placeholder="Identificación de usuario" class="form-control" required v-model.trim="form.id" :disabled="put"/>
               <input type="text" placeholder="Nombre de usuario"  class="form-control " required v-model.trim="form.name">
               <input type="text" placeholder="Cargo asignado" class="form-control" v-model.trim="form.cargo">
-              <div class="form-inline">
-              <label for="" class="" style="color:white;">SuperUsuario   </label>
-              <input type="checkbox"  class="form-control" v-model.trim="form.dir">
-              </div>
+              <b-form-checkbox v-model="form.super" name="check-button" switch> <b style="color:white;">Permisos de Admnistrador</b> </b-form-checkbox>
             </div>
           </form>
         </div>
@@ -32,11 +29,12 @@
           </div>
         </div>
       </div>
-    </div> 
- {{url}}
+    </div>
    </div>
 </template>
 <script>
+import axios from 'axios';
+import swal from 'sweetalert'
 import tableTemplate from '@/components/tableTemplate'
 export default {
     data() {
@@ -77,7 +75,7 @@ export default {
         id: '',
         name: '',
         cargo: '',
-        su: false
+        super: false
       }
         }
     },
@@ -86,10 +84,9 @@ export default {
     },
     methods: {
     clearForm() {
-      this.form.nit = '',
+      this.form.id = '',
         this.form.name = '',
-        this.form.phone = '',
-        this.form.dir = ''
+        this.form.cargo = ''
     },
     toggle() {
       if (this.put) {
@@ -126,13 +123,15 @@ export default {
     },
     editUser(iduser) {
       const serv = this.url + `?id=` + iduser
+      console.log(serv);
       axios.get(serv).then((res) => {
+        console.log(res);
         this.toggle()
         this.put = true
         this.form.id = res.data[0].id
         this.form.name = res.data[0].name
         this.form.cargo = res.data[0].cargo
-        this.form.su = res.data[0].su
+        this.form.super = res.data[0].super
       }).catch((error) => {
         console.log(error)
       })
@@ -145,8 +144,8 @@ export default {
         formData.append('mode',mode)
         formData.append('id', this.form.id)
         formData.append('name', this.form.name)
-        formData.append('cargo', this.form.phone)
-        formData.append('su', this.form.su)
+        formData.append('cargo', this.form.cargo)
+        formData.append('super', this.form.super)
         axios.post(this.url, formData).then((response) => {
             this.$refs.table.getData()
             this.clearForm()
@@ -160,7 +159,7 @@ export default {
       }
     }
     },
-    
+
 }
 </script>
 <style lang="css">
@@ -173,7 +172,7 @@ export default {
   background: rgba(0, 0, 0, 0.8);
   z-index: 2;
 }
-input[type=text]{
+#form input[type=text]{
   margin-top: 2em;
 }
 </style>
