@@ -6,6 +6,7 @@ import clientes from '@/components/clientes'
 import list from '@/components/list_pedidos'
 import tableTemplate from '@/components/tableTemplate'
 import users from '@/components/users'
+import process from '@/components/process'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/users',
       name: 'users',
       component: users
+    },
+    {
+      path: '/process',
+      name: 'process',
+      component: process
     }
   ]
 })

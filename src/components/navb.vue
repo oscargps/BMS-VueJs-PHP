@@ -27,7 +27,9 @@
                  </router-link>
             </li>
             <li class="nav-item active">
-              <a class="nav-link" href="procesos.html">Procesos</a>
+                <router-link to="/process" class="nav-link">
+                   Procesos
+                </router-link>
             </li>
           </ul>
         </div>
