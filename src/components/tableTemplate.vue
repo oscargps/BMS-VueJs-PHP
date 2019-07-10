@@ -7,7 +7,7 @@
           <b-input-group>
             <b-form-input v-model="filter"  placeholder="Buscar..."></b-form-input>
             <b-input-group-append>
-              <b-button :disabled="!filter" @click="filter = ''">Limpiar</b-button>
+              <button class="btn btn-primary"  @click="filter = ''">Limpiar</button>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
@@ -32,7 +32,7 @@
       @filtered="onFiltered"
     >
       <template slot="actions" slot-scope="row">
-        <b-button size="sm" variant="primary" >Editar </b-button>
+        <b-button size="sm" variant="primary" @click='clickEdit(row.item.nit)' >Editar </b-button>
         <b-button size="sm" variant="danger" @click='clickDelete(row.item.nit)' >Eliminar </b-button>
       </template>
 
@@ -91,28 +91,14 @@ import axios from 'axios';
       field:{
         type: Array
       },
-      clickDelete: Function
+      clickDelete: Function,
+      clickEdit: Function
     },
     methods: {
-      hey(){
-        alert('hey')
-      },
       getData(){
         axios.get(this.serv).then((response)=>{
           this.items = response.data
         }).catch((error) => {console.log(error)})
-      },
-      del(){
-        this.method
-      },
-      info(item, index, button) {
-        this.infoModal.title = `Row index: ${index}`
-        this.infoModal.content = JSON.stringify(item, null, 2)
-        this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-      },
-      resetInfoModal() {
-        this.infoModal.title = ''
-        this.infoModal.content = ''
       },
       onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering

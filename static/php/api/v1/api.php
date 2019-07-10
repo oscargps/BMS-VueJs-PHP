@@ -13,11 +13,16 @@ switch ($method) {
       $sql = "select * from clientes".($id?" where id_cliente='$id'":'');
       break;
     case 'POST':
+    $mode = $_POST['mode'];
       $nit = $_POST["nit"];
       $name= $_POST["name"];
       $contacto= $_POST["phone"];
       $dir = $_POST["dir"];
-      $sql = "insert into clientes (id_cliente, name_cliente, nit, contacto, direccion) values ('$nit', '$name', '$nit', '$contacto', '$dir')";
+      if ($mode=="add") {
+        $sql = "insert into clientes (id_cliente, name_cliente, nit, contacto, direccion) values ('$nit', '$name', '$nit', '$contacto', '$dir')";
+      }else{
+        $sql = "update clientes set name_cliente= '$name', contacto='$contacto', direccion='$dir' where nit= '$nit' ";
+      }
       break;
     case 'DELETE':
       $id=$_GET['id'];
