@@ -22,7 +22,9 @@
                  </router-link>
                 </li>
             <li class="nav-item active">
-              <a class="nav-link" href="usuarios.html">Usuarios</a>
+              <router-link to="/users" class="nav-link">
+                   Usuarios
+                 </router-link>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="procesos.html">Procesos</a>

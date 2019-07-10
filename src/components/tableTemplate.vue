@@ -7,7 +7,7 @@
           <b-input-group>
             <b-form-input v-model="filter"  placeholder="Buscar..."></b-form-input>
             <b-input-group-append>
-              <button class="btn btn-primary"  @click="filter = ''">Limpiar</button>
+              <b-button variant="primary" :disabled="!filter"  @click="filter = ''">Limpiar</b-button>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
