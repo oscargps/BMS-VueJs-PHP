@@ -10,23 +10,25 @@ if (!$conn) {
 switch ($method) {
     case 'GET':
       $id=$_GET['id'];
-      $sql = "select * from process".($id?" where id='$id'":'');
+      $sql = "select * from procesos".($id?" where id_proceso='$id'":'');
       break;
     case 'POST':
     $mode = $_POST['mode'];
       $id = $_POST["id"];
       $name= $_POST["name"];
       $descr= $_POST["descr"];
-      $time = $_POST["time"];
+
       if ($mode=="add") {
-        $sql = "insert into process (id, name_cliente, id, descr, direccion) values ('$id', '$name', '$id', '$descr', '$time')";
+        $time = $_POST["time"].':00:00';
+        $sql = "insert into procesos (id_proceso, nombre, description, timeprom) values ('$id', '$name','$descr', '$time')";
       }else{
-        $sql = "update process set name_cliente= '$name', descr='$descr', direccion='$time' where id= '$id' ";
+        $time = $_POST["time"];
+        $sql = "update procesos set nombre= '$name', description='$descr', timeprom='$time' where id_proceso= '$id' ";
       }
       break;
     case 'DELETE':
       $id=$_GET['id'];
-      $sql = "DELETE  from process  where id='$id'";
+      $sql = "DELETE  from procesos  where id_proceso='$id'";
 }
 $result = pg_query($conn, $sql);
 if (!$result) {
@@ -39,10 +41,10 @@ if ($method == 'GET') {
   while ($row = pg_fetch_row($result)) {
       $json[]=array(
         'id'=>$row[0],
-          'name'=>$row[1],
-          'id'=>$row[2],
-          'descr'=>$row[3],
-          'time'=>$row[4]
+          'descr'=>$row[1],
+          'time'=>$row[2],
+          'name'=>$row[3],
+
 
       );
       //echo $row[0];

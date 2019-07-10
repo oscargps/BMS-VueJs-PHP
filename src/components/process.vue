@@ -15,9 +15,12 @@
           <form  class="col-4" id="form_add">
             <div class="pb-2">
               <b-input type="text" placeholder="Id proceso" class="form-control" required v-model.trim="form.id" :disabled="put"/>
-              <input type="text" placeholder="Nombre"  class="form-control " required v-model.trim="form.name">
+              <div class="input-group">
+                <input type="text" placeholder="Nombre"  class="form-control " required v-model.trim="form.name">
+                <input type="text" v-if="put" placeholder="Tiempo(Horas)" class="form-control" v-model.trim="form.time">
+                <input type="number" v-else min="1" max="24" placeholder="Tiempo(Horas)" class="form-control" v-model.trim="form.time">
+              </div>
               <input type="text" placeholder="Descripción" class="form-control" v-model.trim="form.descr">
-              <input type="number" placeholder="Tiempo" class="form-control" v-model.trim="form.time">
             </div>
           </form>
         </div>
@@ -45,8 +48,8 @@ export default {
       items: [],
       put: false,
       fields: [{
-          key: 'ID de proceso',
-          label: 'id',
+          key: 'id',
+          label: 'Id de proceso',
           sortable: true,
           sortdirection: 'desc'
         },
@@ -96,7 +99,7 @@ export default {
       this.showName = !this.showName
       this.clearForm()
     },
-    deleteClient(idUser) {
+    deleteProcess(idUser) {
       const path = this.url + `?id=` + idUser
       swal("¿Desea eliminar el proceso?", {
           buttons: {
@@ -122,7 +125,7 @@ export default {
           }
         });
     },
-    editClient(idUSer) {
+    editProcess(idUSer) {
       const serv = this.url + `?id=` + idUSer
       axios.get(serv).then((res) => {
         this.toggle()
@@ -131,6 +134,7 @@ export default {
         this.form.name = res.data[0].name
         this.form.descr = res.data[0].descr
         this.form.time = res.data[0].time
+        console.log(this.form.time);
       }).catch((error) => {
         console.log(error)
       })
