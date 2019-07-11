@@ -84,7 +84,6 @@ import axios from 'axios';
     mounted() {
 
       this.getData()
-      // Set the initial number of items
       this.totalRows = this.items.length
     },
     props:{

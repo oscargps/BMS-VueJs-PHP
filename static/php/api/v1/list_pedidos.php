@@ -1,14 +1,15 @@
 <?php
 
 include 'conexion.php';
-
+error_reporting(E_ALL ^ E_NOTICE);
 $conn = pg_pconnect("port=$port dbname=$db user=$user password=$pw");
 if (!$conn) {
   echo "Ocurrió un error.\n";
   exit;
 }
+$id=$_GET['id'];
+$query='SELECT * FROM pedidos'.($id?" where id_pedido='$id'":'');
 
-$query='SELECT id_pedido,client,born_time,state_of FROM pedidos';
 $result = pg_query($conn, $query);
 if (!$result) {
   echo "Ocurrió un error.\n";
@@ -18,11 +19,15 @@ $json=array();
 while ($row = pg_fetch_row($result)) {
   $json[]=array(
       'id'=>$row[0],
-      'cliente'=>$row[1],
+      'usercreate'=>$row[1],
       'born'=>$row[2],
-      'state'=>$row[3]
+      'end'=>$row[3],
+      'expect' => $row[4],
+      'state' => $row[5],
+      'client' => $row[8],
+      'obs' => $row[10],
   );
-  
+
 }
 $jsons=json_encode($json);
 echo($jsons);

@@ -7,7 +7,7 @@ import list from '@/components/list_pedidos'
 import tableTemplate from '@/components/tableTemplate'
 import users from '@/components/users'
 import process from '@/components/process'
-
+import detailsPedido from '@/components/detailsPedido'
 Vue.use(Router)
 
 export default new Router({
@@ -41,6 +41,11 @@ export default new Router({
       path: '/process',
       name: 'process',
       component: process
+    },
+    {
+      path: '/detailsPedido',
+      name: 'detailsPedido',
+      component: detailsPedido
     }
   ]
 })

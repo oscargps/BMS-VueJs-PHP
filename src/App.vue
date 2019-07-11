@@ -8,12 +8,7 @@
 <script>
 
 import navb from '@/components/navb'
-// Importamos JQuery
-const $ = require('jquery')
-window.dt = require('datatables.net');
-window.dt2 = require('datatables.net-dt');
-// Lo declaramos globalmente
-window.$ = $
+
 export default {
   name: 'App',
   components:{
