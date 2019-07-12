@@ -6,16 +6,21 @@
       </div>
       <div class="card-body">
         <div>
-    <b-table stacked :items="items" :fields="fields"></b-table>
-  </div>
-      <button type="button" class="btn btn-primary" @click="hideIt(false)" name="button">Cerrar</button>
+          <b-table stacked :items="items" :fields="fields"></b-table>
+        </div>
+        <button type="button" class="btn btn-primary" @click="hideIt(false)" name="button">Cerrar</button>
+        <button type="button" class="btn btn-warning" >Actualizar estado</button>
       </div>
     </div>
+    <div id="form">
+      <state/>
+    </div> 
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import state from '@/components/state'
 export default {
   data() {
     return {
@@ -54,6 +59,9 @@ export default {
       ],
     }
   },
+  components:{
+    state
+  },
   props: {
     id: {
       type: String
@@ -77,5 +85,13 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+#form{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}
 </style>

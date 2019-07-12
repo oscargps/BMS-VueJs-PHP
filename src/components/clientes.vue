@@ -30,7 +30,6 @@
         </div>
       </div>
     </div>
-    {{url}}
   </div>
 </template>
 <script>
