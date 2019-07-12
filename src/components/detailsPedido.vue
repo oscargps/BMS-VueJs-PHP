@@ -9,12 +9,12 @@
           <b-table stacked :items="items" :fields="fields"></b-table>
         </div>
         <button type="button" class="btn btn-primary" @click="hideIt(false)" name="button">Cerrar</button>
-        <button type="button" class="btn btn-warning" >Actualizar estado</button>
+        <button type="button" class="btn btn-warning" @click="state=true" >Actualizar estado</button>
       </div>
     </div>
-    <div id="form">
-      <state/>
-    </div> 
+    <div id="form" v-if="state">
+      <state v-bind:id="id" :hideIt="hideState" v-bind:procesos="items[0].process"/>
+    </div>
   </div>
 </template>
 
@@ -25,6 +25,8 @@ export default {
   data() {
     return {
       url: this.serv + '?id=' + this.id,
+      state:false,
+      msg:'hola',
       items: [],
       fields: [{
           key: 'id',
@@ -79,6 +81,10 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
+    },
+    hideState(){
+      this.state=false
+      this.hideIt(false)
     }
   }
 }

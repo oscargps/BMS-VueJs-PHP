@@ -79,7 +79,7 @@ import detailsPedido from '@/components/detailsPedido'
           ],
           totalRows: 1,
           currentPage: 1,
-          perPage: 5,
+          perPage: 10,
           pageOptions: [5, 10, 15],
           filter: null
         }
@@ -102,6 +102,7 @@ import detailsPedido from '@/components/detailsPedido'
         showDetails(id,mode){
           this.idDetails = id
           this.details=mode
+          this.getData()
         }
       }
     }

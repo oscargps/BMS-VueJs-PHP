@@ -89,6 +89,7 @@ export default {
         let id = user + born
         let file = this.selected + '-' + born + '.txt'
         let url = `${process.env.BASE_URI}new.php`
+        formData.append('mode','new')
         formData.append('cliente', this.selected)
         formData.append('date', this.date)
         formData.append('auth_users', this.addedUsers)

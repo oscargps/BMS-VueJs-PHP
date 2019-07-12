@@ -1,5 +1,5 @@
 <?php
-include 'conexion.php';
+include('conexion.php');
 error_reporting(E_ALL ^ E_NOTICE);
 $conn = pg_pconnect("port=$port dbname=$db user=$user password=$pw");
 if (!$conn) {
@@ -8,20 +8,26 @@ if (!$conn) {
 }
 switch ($method) {
     case 'POST':
-    $cliente=$_POST['cliente'];
-    $date=$_POST['date'];
-    $auth_users=$_POST['auth_users'];
-    $proc_assoc=$_POST['proc_assoc'];
-    $obs=$_POST['obs'];
-    $born=$_POST['born'];
-    $user=$_POST['user'];
-    $id=$_POST['id'];
-    $file=$_POST['file'];
+    $mode = $_POST['mode'];
+    if($mode == 'new'){
+      $cliente=$_POST['cliente'];
+      $date=$_POST['date'];
+      $auth_users=$_POST['auth_users'];
+      $proc_assoc=$_POST['proc_assoc'];
+      $obs=$_POST['obs'];
+      $born=$_POST['born'];
+      $user=$_POST['user'];
+      $id=$_POST['id'];
+      $file=$_POST['file'];
+      $sql= "INSERT INTO pedidos(id_pedido,usercreate,born_time,expect_time,file_name,auth_user,client,proc_asoc,obs) VALUES".
+      "('$id','$user','$born','$date','$file','$auth_users','$cliente','$proc_assoc','$obs')";
+    }else{
+      $id=$_POST['id'];
+      $state = $_POST['state'];
+      $sql = "UPDATE pedidos set state_of='$state' WHERE id_pedido='$id'";
+    }
 
-    $sql= "INSERT INTO pedidos(id_pedido,usercreate,born_time,expect_time,file_name,auth_user,client,proc_asoc,obs) VALUES".
-    "('$id','$user','$born','$date','$file','$auth_users','$cliente','$proc_assoc','$obs')";
   }
-  echo $sql;
 
   $result = pg_query($conn, $sql);
   if (!$result) {

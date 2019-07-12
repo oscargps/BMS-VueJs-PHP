@@ -11,7 +11,6 @@
         <b-dropdown id="navbarColor01" text="Pedidos" variant="primary" class="m-md-2">
     <b-dropdown-item><router-link to="/new" class="dropdown-item">Nuevo</router-link></b-dropdown-item>
     <b-dropdown-item><router-link to="/list" class="dropdown-item">Lista de Pedidos</router-link></b-dropdown-item>
-    <b-dropdown-item>Cambiar estado</b-dropdown-item>
     <b-dropdown-divider></b-dropdown-divider>
   </b-dropdown>
 

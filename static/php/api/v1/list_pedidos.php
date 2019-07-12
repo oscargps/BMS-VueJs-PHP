@@ -24,6 +24,7 @@ while ($row = pg_fetch_row($result)) {
       'end'=>$row[3],
       'expect' => $row[4],
       'state' => $row[5],
+      'process' => $row[9],
       'client' => $row[8],
       'obs' => $row[10],
   );
