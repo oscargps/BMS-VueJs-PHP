@@ -73,8 +73,8 @@ import detailsPedido from '@/components/detailsPedido'
           items: [],
           fields:[
             { key: 'client', label: 'Cliente', sortable: true, class: 'text-center' },
-            { key: 'born', label: 'Fecha de Entrega' },
-            { key: 'state', label: 'Estado' },
+            { key: 'born', label: 'Fecha de Entrega', sortable: true },
+            { key: 'state', label: 'Estado' , sortable: true},
             { key: 'actions', label: 'Opciones' }
           ],
           totalRows: 1,
