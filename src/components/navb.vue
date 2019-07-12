@@ -19,6 +19,11 @@
 
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
+          <router-link to="/productos" class="nav-link">
+            Productos
+          </router-link>
+        </li>
+        <li class="nav-item active">
           <router-link to="/clientes" class="nav-link">
             Clientes
           </router-link>

@@ -8,6 +8,8 @@ import tableTemplate from '@/components/tableTemplate'
 import users from '@/components/users'
 import process from '@/components/process'
 import detailsPedido from '@/components/detailsPedido'
+import newFactura from '@/components/newFactura'
+import productos from '@/components/productos'
 Vue.use(Router)
 
 export default new Router({
@@ -46,6 +48,16 @@ export default new Router({
       path: '/detailsPedido',
       name: 'detailsPedido',
       component: detailsPedido
+    },
+    {
+      path: '/newFactura',
+      name: 'newFactura',
+      component: newFactura
+    },
+    {
+      path: '/productos',
+      name: 'productos',
+      component: productos
     }
   ]
 })
