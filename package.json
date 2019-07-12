@@ -13,8 +13,6 @@
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.25",
-    "datatables.net": "^1.10.19",
-    "datatables.net-dt": "^1.10.19",
     "jquery": "^3.4.1",
     "sweetalert": "^2.1.2",
     "vue": "^2.6.10",

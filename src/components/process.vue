@@ -134,7 +134,6 @@ export default {
         this.form.name = res.data[0].name
         this.form.descr = res.data[0].descr
         this.form.time = res.data[0].time
-        console.log(this.form.time);
       }).catch((error) => {
         console.log(error)
       })

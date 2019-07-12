@@ -123,9 +123,7 @@ export default {
     },
     editUser(iduser) {
       const serv = this.url + `?id=` + iduser
-      console.log(serv);
       axios.get(serv).then((res) => {
-        console.log(res);
         this.toggle()
         this.put = true
         this.form.id = res.data[0].id

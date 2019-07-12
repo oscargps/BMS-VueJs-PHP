@@ -1,21 +1,24 @@
 <template>
-<div class="card">
-  <div class="card-header">
-    <h1>Actualizar estado de pedido</h1>
-  </div class="container">
-  <div class="card-body">
-    <select class="custom-select" v-model='selected'>
-      <option v-for="item in items" :value="item" :key="">
-        {{ item }}
-      </option>
-    </select>
-    <hr>
-    <div class="">
-      <button type="button" class="btn btn-success" @click="updateState()">Actualizar</button>
-      <button type="button" @click="hideIt()" class="btn btn-primary">Cerrar</button>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h1>Actualizar estado de pedido</h1>
+      </div class="container">
+      <div class="card-body">
+        <select class="custom-select" v-model='selected'>
+          <option v-for="item in items" :value="item" :key="">
+            {{ item }}
+          </option>
+        </select>
+        <hr>
+        <div class="">
+          <button type="button" class="btn btn-success" @click="updateState()">Actualizar</button>
+          <button type="button" @click="hideIt()" class="btn btn-primary">Cerrar</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+
 </template>
 <script>
 import axios from 'axios'

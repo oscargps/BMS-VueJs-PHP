@@ -113,7 +113,6 @@ export default {
       const url = `${process.env.BASE_URI}cliente.php`
       axios.get(url).then((response) => {
         this.clientes = response.data
-        console.log(response);
       }).catch((error) => {
         console.log(error)
       })
