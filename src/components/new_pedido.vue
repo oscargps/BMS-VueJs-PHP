@@ -19,10 +19,15 @@
                                 <input type="date" id="time_exp"  class="form-control" required v-model="date">
                             </div>
                             <hr>
-                            <h4>Procesos Asociados</h4>
-                            <div id="procesos"></div>
+                            <h4>Descripción del pedido</h4>
                             <hr>
-                            <textarea v-model='obs'  cols="40" rows="10" required>Sin Observaciones</textarea>
+                            <button type="button" class="btn btn-success" @click="toggle()">Agregar Productos</button>
+                            <hr>
+                            <div >
+                              <b-table :items = "productos" :fields="fields"></b-table>
+                            </div>
+                            <hr>
+                            <textarea v-model='obs'  cols="40" rows="2" >Sin Observaciones</textarea>
                             <hr>
 
                     </form>
@@ -54,15 +59,21 @@
             </div>
         </div>
     </div>
+    <div v-if="select" id="form">
+      <selectProduct :clickAdd="addProduct" :close="toggle"/>
+    </div>
+    {{productos}}
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import swal from 'sweetalert'
+import selectProduct from '@/components/selectProduct'
 export default {
   data() {
     return {
+      select:false,
       procesos: [],
       users: [],
       clientes: [],
@@ -70,7 +81,12 @@ export default {
       addedUsers: [],
       selected: '',
       date: '',
-      obs: ''
+      obs: '',
+      productos:[],
+      fields:[
+        {key: 'descr', label: 'Producto'},
+        {key: 'qa', label: 'Cantidad'}
+      ]
     }
   },
   mounted() {
@@ -78,7 +94,20 @@ export default {
     this.getUsers()
     this.getClientes()
   },
+  components:{
+    selectProduct
+  },
   methods: {
+    addProduct(id_producto,descr,qa){
+      let element = {}
+      element.descr = descr
+      element.id_producto = id_producto
+      element.qa = qa;
+      this.productos.push(element);
+    },
+    toggle(){
+      this.select = !this.select
+    },
     savePedido() {
       if ((this.selected == '') || (this.date == '')) {
         swal('¡Falta Información!', '', 'warning')
@@ -161,4 +190,13 @@ export default {
 </script>
 
 <style lang="css" scoped>
+#form{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}
 </style>
