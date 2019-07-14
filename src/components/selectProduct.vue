@@ -36,8 +36,8 @@
 
 
         <template slot="actions" slot-scope="row">
-          <input type="number" id="qa" name="qa" v-bind:value="qa">
-          <b-button size="sm" variant="success" @click='clickAdd(row.item.id,row.item.descr,$event.target.parentNode.firstChild.value)' >Agregar </b-button>
+          <input type="number" min="1" id="qa" name="qa" v-bind:value="qa">
+          <b-button size="sm"  variant="success" @click='clickAdd(row.item.id,row.item.descr,$event.target.parentNode.firstChild.value)' >Agregar </b-button>
         </template>
 
       </b-table>
@@ -52,11 +52,11 @@
           ></b-pagination>
         </b-col>
       </b-row>
-
-
+<hr>
+  <button type="button" @click="close()" class="btn btn-primary">Terminar</button>
     </b-container>
-    <hr>
-    <button type="button" @click="close()" class="btn btn-primary">Cerrar</button>
+
+
   </div>
 
 </template>
@@ -90,7 +90,7 @@ export default {
         }],
         totalRows: 1,
         currentPage: 1,
-        perPage: 10,
+        perPage: 5,
         pageOptions: [5, 10, 15],
         filter: null,
         qa:0

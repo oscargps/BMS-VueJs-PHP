@@ -19,8 +19,10 @@ switch ($method) {
       $user=$_POST['user'];
       $id=$_POST['id'];
       $file=$_POST['file'];
-      $sql= "INSERT INTO pedidos(id_pedido,usercreate,born_time,expect_time,file_name,auth_user,client,proc_asoc,obs) VALUES".
-      "('$id','$user','$born','$date','$file','$auth_users','$cliente','$proc_assoc','$obs')";
+      $productos = $_POST['productos'];
+      $sql= "INSERT INTO pedidos(id_pedido,usercreate,born_time,expect_time,file_name,auth_user,client,proc_asoc,obs, productos) VALUES".
+      "('$id','$user','$born','$date','$file','$auth_users','$cliente','$proc_assoc','$obs', '$productos')";
+  //  echo $sql;
     }else{
       $id=$_POST['id'];
       $state = $_POST['state'];
@@ -29,7 +31,7 @@ switch ($method) {
 
   }
 
-  $result = pg_query($conn, $sql);
+ $result = pg_query($conn, $sql);
   if (!$result) {
     http_response_code(404);
     die(mysqli_error($conn));

@@ -6,11 +6,15 @@
       </div>
       <div class="card-body">
         <div>
-          <b-table stacked :items="items" :fields="fields"></b-table>
+          <b-table stacked :items="items" :fields="fields">
+          <template slot="productos"  slot-scope="row">
+              <b-table :items="productos" :fields="fieldsProducts"></b-table>
+            </template>
+          </b-table>
         </div>
         <button type="button" class="btn btn-info" v-if="stateInfo === '006-Entrega'">Facturación</button>
         <button type="button" class="btn btn-warning" @click="state=true" >Actualizar estado</button>
-        <button type="button" class="btn btn-primary" @click="hideIt(false)" name="button">Cerrar</button>
+        <b-button variant="primary" :to="{ name:'list'}">Cerrar</b-button>
       </div>
     </div>
     <div id="form" v-if="state">
@@ -22,13 +26,16 @@
 
 <script>
 import axios from 'axios'
+import list_pedidos from '@/components/list_pedidos'
 import state from '@/components/state'
 export default {
   data() {
     return {
-      url: this.serv + '?id=' + this.id,
+      serv: this.$route.params.serv,
+      id: this.$route.params.id,
       state:false,
       stateInfo:'',
+      productos:[],
       items: [],
       fields: [{
           key: 'id',
@@ -59,35 +66,37 @@ export default {
         {
           key: 'state',
           label: 'Estado del pedido:'
+        },
+        {
+          key: 'productos',
+          label: 'Detalle del pedido'
         }
       ],
+      fieldsProducts:[
+        {key: 'descr', label: 'Producto'},
+        {key: 'qa', label: 'Cantidad'}      ]
     }
   },
   components:{
     state
-  },
-  props: {
-    id: {
-      type: String
-    },
-    serv: String,
-    hideIt: Function
   },
   mounted() {
     this.getData()
   },
   methods: {
     getData() {
-      axios.get(this.url).then((response) => {
+      let url= this.serv + '?id=' + this.id
+      axios.get(url).then((response) => {
         this.items = response.data
         this.stateInfo = response.data[0].state
+        this.productos=JSON.parse(response.data[0].productos)
       }).catch((error) => {
         console.log(error)
       })
     },
     hideState(){
       this.state=false
-      this.hideIt(false)
+      this.getData()
     }
   }
 }

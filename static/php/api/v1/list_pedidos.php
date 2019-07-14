@@ -27,6 +27,7 @@ while ($row = pg_fetch_row($result)) {
       'process' => $row[9],
       'client' => $row[8],
       'obs' => $row[10],
+      'productos' => $row[11]
   );
 
 }

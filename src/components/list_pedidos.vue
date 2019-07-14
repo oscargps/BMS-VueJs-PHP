@@ -33,7 +33,7 @@
         @filtered="onFiltered"
       >
         <template slot="actions" slot-scope="row">
-          <b-button size="sm" variant="primary" @click='showDetails(row.item.id,true)' >Ver </b-button>
+          <b-button size="sm" variant="primary" :to="{ name:'detailsPedido', params: {serv:url, id:row.item.id} }" >Ver </b-button>
         </template>
 
       </b-table>

@@ -24,7 +24,11 @@
                             <button type="button" class="btn btn-success" @click="toggle()">Agregar Productos</button>
                             <hr>
                             <div >
-                              <b-table :items = "productos" :fields="fields"></b-table>
+                              <b-table :items = "items" :fields="fields">
+                                <template slot="delete"  slot-scope="row">
+                                  <button type="button" class="btn btn-danger btn-sm" @click="deleteItem(row.index)">X</button>
+                                </template>
+                              </b-table>
                             </div>
                             <hr>
                             <textarea v-model='obs'  cols="40" rows="2" >Sin Observaciones</textarea>
@@ -62,7 +66,7 @@
     <div v-if="select" id="form">
       <selectProduct :clickAdd="addProduct" :close="toggle"/>
     </div>
-    {{productos}}
+
   </div>
 </template>
 
@@ -82,10 +86,11 @@ export default {
       selected: '',
       date: '',
       obs: '',
-      productos:[],
+      items:[],
       fields:[
         {key: 'descr', label: 'Producto'},
-        {key: 'qa', label: 'Cantidad'}
+        {key: 'qa', label: 'Cantidad'},
+        {key: 'delete', label: 'Eliminar'}
       ]
     }
   },
@@ -98,12 +103,15 @@ export default {
     selectProduct
   },
   methods: {
+    deleteItem(id){
+      this.items.splice(id,1)
+    },
     addProduct(id_producto,descr,qa){
       let element = {}
       element.descr = descr
       element.id_producto = id_producto
       element.qa = qa;
-      this.productos.push(element);
+      this.items.push(element);
     },
     toggle(){
       this.select = !this.select
@@ -128,6 +136,7 @@ export default {
         formData.append('user', user)
         formData.append('id', id)
         formData.append('file', file)
+        formData.append('productos',JSON.stringify(this.items) )
         axios.post(url, formData).then((response) => {
             this.clearAll()
             swal('Acción Exitosa', '', 'success')
@@ -184,6 +193,7 @@ export default {
       this.selected = ''
       this.date = ''
       this.obs = ''
+      this.items=[]
     }
   }
 }
