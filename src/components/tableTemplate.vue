@@ -19,7 +19,7 @@
         </b-form-group>
       </b-col>
     </b-row>
-
+    desde:  {{from}}
     <!-- Main table element -->
     <b-table
       show-empty
@@ -34,9 +34,16 @@
     <template v-if="user" slot="super" slot-scope="row">
      {{ row.item.super ? 'Si' : 'No' }}
    </template>
-      <template slot="actions" slot-scope="row">
-        <b-button size="sm" variant="primary" @click='clickEdit(row.item.id)' >Editar </b-button>
-        <b-button size="sm" variant="danger" @click='clickDelete(row.item.id)' >Eliminar </b-button>
+   <template v-if="factura" slot="state" slot-scope="row">
+    {{ row.item.state ? 'Si' : 'No' }}
+  </template>
+
+      <template slot="actions" slot-scope="row" >
+        <b-button size="sm" variant="primary" :to="{ name:'newFactura', params: { id:row.item.id, crear: false}}" v-if="factura" >Ver detalle </b-button>
+        <div class="" v-else>
+          <b-button size="sm" variant="primary" @click='clickEdit(row.item.id)'  >Editar </b-button>
+          <b-button size="sm" variant="danger" @click='clickDelete(row.item.id)' >Eliminar </b-button>
+        </div>
       </template>
 
     </b-table>
@@ -95,7 +102,9 @@ import axios from 'axios';
       },
       clickDelete: Function,
       clickEdit: Function,
-      user:false
+      from:String,
+      user: false,
+      factura: false
     },
     methods: {
       getData(){

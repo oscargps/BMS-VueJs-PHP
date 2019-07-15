@@ -1,6 +1,8 @@
 <?php
 include('conexion.php');
 error_reporting(E_ALL ^ E_NOTICE);
+date_default_timezone_set('America/Bogota');
+$date = date(' d-m-Y H:i:s');
 $conn = pg_pconnect("port=$port dbname=$db user=$user password=$pw");
 if (!$conn) {
   echo "Ocurrió un error.\n";
@@ -21,8 +23,7 @@ switch ($method) {
       if ($mode=="new") {
         $sql = "insert into facturas (id_factura, cliente, total_factura) values ('$id', '$client',$total)";
       }else{
-        $fecha = $_POST['fecha'];
-        $sql = "update facturas set state= 'true', pago='$fecha' where id_factura= '$id' ";
+        $sql = "update facturas set state= 'true', pago='$date' where id_factura= '$id' ";
       }
       break;
     case 'DELETE':
@@ -43,7 +44,7 @@ if ($method == 'GET') {
           'born'=>$row[1],
           'cliente'=>$row[2],
           'total'=>$row[3],
-          'state' => $row[4],
+          'state' => ($row[4] == 't')? true:false,
           'pago' => $row[5]
 
 

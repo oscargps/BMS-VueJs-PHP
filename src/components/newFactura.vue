@@ -57,7 +57,7 @@
       </div>
       <div class="card-footer" >
         <b-button v-if="crear" variant="success" @click="saveFactura()">Generar Factura</b-button>
-        <b-button v-else variant="primary">Verificar pago</b-button>
+        <b-button v-else variant="primary" @click="pagar()">Verificar pago</b-button>
 
       </div>
 
@@ -108,13 +108,13 @@ export default {
   },
   methods: {
     getData() {
-      let url = this.serv + '?id=' + this.id
+      let url =  `${process.env.BASE_URI}list_pedidos.php` + '?id=' + this.id
       let cliente = []
       axios.get(url).then((response) => {
         cliente = response.data[0].client.split('-', 2)
         this.nit = cliente[0]
         this.cliente = cliente[1]
-        this.fullCliente = cliente
+        this.fullCliente = response.data[0].client
         this.productos = JSON.parse(response.data[0].productos)
         this.getInfoCliente()
       }).catch((error) => {
@@ -166,12 +166,26 @@ export default {
       formData.append('total',this.total)
       axios.post(url, formData).then((response) => {
           swal('Factura creada exitosamente', '', 'success')
-          console.log(response);
+          location.href='/facturacion/facturas'
         })
         .catch((error) => {
           console.log(error)
           swal('Ha ocurrido un eror', '', 'error')
         })
+    },
+    pagar(){
+        let url = `${process.env.BASE_URI}facturas.php`
+        let formData = new FormData();
+        formData.append('mode','pay')
+        formData.append('id',this.id)
+        axios.post(url, formData).then((response) => {
+            swal('Pago ingresado', '', 'success')
+            location.href='/facturacion/facturas'
+          })
+          .catch((error) => {
+            console.log(error)
+            swal('Ha ocurrido un eror', '', 'error')
+          })
     }
   }
 }

@@ -63,7 +63,6 @@
 
 <script>
 import axios from 'axios'
-import tableTemplate from '@/components/tableTemplate'
 export default {
   data(){
     return{
