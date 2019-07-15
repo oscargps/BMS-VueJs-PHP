@@ -12,7 +12,7 @@
             </template>
           </b-table>
         </div>
-        <button type="button" class="btn btn-info" v-if="stateInfo === '006-Entrega'">Facturación</button>
+        <b-button variant="info" v-if="stateInfo === '006-Entrega'" :to="{ name:'newFactura', params: {serv:serv, id:id, crear: true}}">Facturación</b-button>
         <button type="button" class="btn btn-warning" @click="state=true" >Actualizar estado</button>
         <b-button variant="primary" :to="{ name:'list'}">Cerrar</b-button>
       </div>

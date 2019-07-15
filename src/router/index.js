@@ -8,8 +8,9 @@ import tableTemplate from '@/components/tableTemplate'
 import users from '@/components/users'
 import process from '@/components/process'
 import detailsPedido from '@/components/detailsPedido'
-import facturacion from '@/components/facturacion'
+import newFactura from '@/components/newFactura'
 import productos from '@/components/productos'
+import facturacion from '@/components/facturacion'
 import index from '@/components/facturacion/index'
 import graficas from '@/components/facturacion/graficas'
 Vue.use(Router)
@@ -64,6 +65,12 @@ export default new Router({
       path: '/productos',
       name: 'productos',
       component: productos
+
+    },
+    {
+      path: '/newFactura',
+      name: 'newFactura',
+      component: newFactura
 
     }
   ]

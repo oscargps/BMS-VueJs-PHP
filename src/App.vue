@@ -2,6 +2,7 @@
   <div id="app">
   <navb/>
     <router-view/>
+    Copyright (c) 2019 GPSolutions All Rights Reserved.
   </div>
 </template>
 
