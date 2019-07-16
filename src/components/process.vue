@@ -2,7 +2,7 @@
   <div>
     <div class="card pt-5">
       <div class="card-header text-center">
-        <h2 class="float-left">Procesos Registrados</h2>
+        <h2 class="float-left">Procesos </h2>
         <input type="image" class="refresh float-right" id="add" @click="toggle()" src="static/icons/add.png" title="Añatime proceso" />
       </div>
       <div class="card-body" id="users">

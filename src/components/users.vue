@@ -2,7 +2,7 @@
     <div>
        <div class="card pt-5">
       <div class="card-header text-center">
-        <h2 class="float-left">Usuarios Registrados</h2>
+        <h2 class="float-left">Jefes de area</h2>
         <input type="image" class="refresh float-right" id="add" @click="toggle()" src="static/icons/agregar-usuario.png" title="Añadir Usuario" />
       </div>
       <div class="card-body" id="users">

@@ -19,7 +19,6 @@
         </b-form-group>
       </b-col>
     </b-row>
-    desde:  {{from}}
     <!-- Main table element -->
     <b-table
       show-empty

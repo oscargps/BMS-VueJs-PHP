@@ -21,7 +21,7 @@ switch ($method) {
       $total= $_POST["total"];
 
       if ($mode=="new") {
-        $sql = "insert into facturas (id_factura, cliente, total_factura) values ('$id', '$client',$total)";
+        $sql = "insert into facturas (id_factura, cliente, total_factura, fecha) values ('$id', '$client',$total, '$date')";
       }else{
         $sql = "update facturas set state= 'true', pago='$date' where id_factura= '$id' ";
       }

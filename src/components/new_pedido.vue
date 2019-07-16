@@ -4,10 +4,11 @@
         <div class="col-md-5">
             <div class="card">
                 <div class="card-header text-center">
-                    <h3>Nuevo Pedido</h3>
+                    <h3>Nuevo pedido</h3>
                 </div>
                 <div class="card-body ">
                     <form >
+                      <label for="">Cliente</label>
                       <select class="custom-select" v-model='selected'>
                         <option v-for="cliente in clientes" :value="cliente.id+' - '+cliente.name" :key="cliente.id+' - '+cliente.name">
                         {{cliente.id}} - {{ cliente.name }}
@@ -15,7 +16,7 @@
                         </select>
                             <hr>
                             <div class="form-group">
-                                <label for="">Fecha de Entrega</label>
+                                <label for="">Fecha de entrega</label>
                                 <input type="date" id="time_exp"  class="form-control" required v-model="date">
                             </div>
                             <hr>
@@ -31,7 +32,7 @@
                               </b-table>
                             </div>
                             <hr>
-                            <textarea v-model='obs'  cols="40" rows="2" >Sin Observaciones</textarea>
+                            <textarea v-model='obs' class="form-control"  cols="40" rows="2" placeholder="Observaciones" ></textarea>
                             <hr>
 
                     </form>
@@ -44,7 +45,7 @@
             <div class="card">
                 <div class="card-header">
                    <div class="">
-                    <h4 class="float-left"  >Usuarios del Sistema</h4>
+                    <h4 class="float-left"  >Jefes de area asociados</h4>
                     <input type="image" class="refresh float-right" @click="resetUser()"  id="refresh-users"src="static/icons/recargar.png" />
                     </div>
                 </div>
@@ -54,7 +55,7 @@
             </div> <hr>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="float-left">Procesos Activos</h4>
+                    <h4 class="float-left">Procesos asociados</h4>
                     <input type="image" class="refresh float-right " @click="resetProcess()" id="refresh-process"src="static/icons/recargar.png" />
                 </div>
                 <div class="card-body" v-for="proceso in procesos" id="tableprocess">
@@ -120,22 +121,16 @@ export default {
       if ((this.selected == '') || (this.date == '')) {
         swal('¡Falta Información!', '', 'warning')
       } else {
-        let born = new Date().toISOString();
         let formData = new FormData();
         let user = '1063300726'
-        let id = user + born
-        let file = this.selected + '-' + born + '.txt'
         let url = `${process.env.BASE_URI}new.php`
         formData.append('mode','new')
         formData.append('cliente', this.selected)
-        formData.append('date', this.date)
+        formData.append('expect', this.date)
         formData.append('auth_users', this.addedUsers)
         formData.append('proc_assoc', this.addedProcesos)
         formData.append('obs', this.obs)
-        formData.append('born', born)
         formData.append('user', user)
-        formData.append('id', id)
-        formData.append('file', file)
         formData.append('productos',JSON.stringify(this.items) )
         axios.post(url, formData).then((response) => {
             this.clearAll()

@@ -12,8 +12,8 @@
             </template>
           </b-table>
         </div>
-        <b-button variant="info" v-if="stateInfo === '006-Entrega'" :to="{ name:'newFactura', params: { id:id, crear: true}}">Facturación</b-button>
-        <button type="button" class="btn btn-warning" @click="state=true" >Actualizar estado</button>
+        <b-button variant="success" v-if="stateInfo === '000-Entregado'" :to="{ name:'newFactura', params: { id:id, crear: true}}">Facturación</b-button>
+        <b-button variant="warning" :disabled="stateInfo === '000-Entregado'" @click="state=true" >Actualizar estado</b-button>
         <b-button variant="primary" :to="{ name:'list'}">Cerrar</b-button>
       </div>
     </div>
@@ -66,6 +66,10 @@ export default {
         {
           key: 'state',
           label: 'Estado del pedido:'
+        },
+        {
+          key: 'end',
+          label: 'Fecha de entrega:'
         },
         {
           key: 'productos',

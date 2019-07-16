@@ -12,7 +12,7 @@
         </select>
         <hr>
         <div class="">
-          <button type="button" class="btn btn-success" @click="updateState()">Actualizar</button>
+          <b-button variant="success" :disabled="!selected" @click="updateState()">Actualizar</b-button>
           <button type="button" @click="hideIt()" class="btn btn-primary">Cerrar</button>
         </div>
       </div>
@@ -38,7 +38,7 @@ export default {
   methods: {
     getData() {
       let array1 = this.procesos.split(',')
-      var array2 = []
+      var array2 = ['000-Entregado']
       array1.forEach(function(element) {
         let serv = `${process.env.BASE_URI}process.php` + '?id=' + element
         axios.get(serv).then((response) => {
@@ -51,21 +51,51 @@ export default {
       this.items = array2
     },
     updateState(){
+      swal("¿Desea actualizar el estado a: " + this.selected + '?', {
+          buttons: {
+            cancel: "Cancelar",
+            catch: {
+              text: "Confirmar",
+              value: "catch",
+            },
+            defeat: false,
+          },
+        })
+        .then((value) => {
+          switch (value) {
+            case "catch":
         let url = `${process.env.BASE_URI}new.php`
         let formData = new FormData();
         formData.append('mode','update')
         formData.append('id', this.id)
         formData.append('state', this.selected)
         axios.post(url, formData).then((response) => {
-            swal('Acción Exitosa', '', 'success')
-            this.hideIt();
+            this.endDate()
           })
           .catch((error) => {
             console.log(error)
             swal('Ha ocurrido un eror', '', 'error')
           })
-    }
+          break;
+      }
+
+    });
   },
+  endDate(){
+    let url = `${process.env.BASE_URI}new.php`
+    let formData = new FormData();
+    formData.append('mode','endDate')
+    formData.append('id', this.id)
+    axios.post(url, formData).then((response) => {
+      swal('Cambio Exitoso', '', 'success')
+        this.hideIt();
+      })
+      .catch((error) => {
+        console.log(error)
+        swal('Ha ocurrido un eror', '', 'error')
+      })
+  }
+},
   mounted() {
     this.getData()
   }
