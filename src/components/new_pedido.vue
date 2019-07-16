@@ -10,8 +10,8 @@
                     <form >
                       <label for="">Cliente</label>
                       <select class="custom-select" v-model='selected'>
-                        <option v-for="cliente in clientes" :value="cliente.id+' - '+cliente.name" :key="cliente.id+' - '+cliente.name">
-                        {{cliente.id}} - {{ cliente.name }}
+                        <option v-for="cliente in clientes" :value="cliente.id+'/'+cliente.name" :key="cliente.id+'/'+cliente.name">
+                        {{cliente.id}} / {{ cliente.name }}
                         </option>
                         </select>
                             <hr>

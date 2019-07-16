@@ -13,7 +13,7 @@ switch ($method) {
     $mode = $_POST['mode'];
     if($mode == 'new'){
       $cliente=$_POST['cliente'];
-      $nit = explode('-',$cliente);
+      $nit = explode('/',$cliente);
       $expect=$_POST['expect'];
       $auth_users=$_POST['auth_users'];
       $proc_assoc=$_POST['proc_assoc'];

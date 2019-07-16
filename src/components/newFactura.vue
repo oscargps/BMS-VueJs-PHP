@@ -111,7 +111,7 @@ export default {
       let url =  `${process.env.BASE_URI}list_pedidos.php` + '?id=' + this.id
       let cliente = []
       axios.get(url).then((response) => {
-        cliente = response.data[0].client.split('-', 2)
+        cliente = response.data[0].client.split('/', 2)
         this.nit = cliente[0]
         this.cliente = cliente[1]
         this.fullCliente = response.data[0].client

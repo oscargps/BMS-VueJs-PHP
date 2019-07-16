@@ -70,7 +70,11 @@ export default {
         formData.append('id', this.id)
         formData.append('state', this.selected)
         axios.post(url, formData).then((response) => {
-            this.endDate()
+          if (this.selected == '000-Entregado') {
+              this.endDate()
+          }else {
+            swal('Cambio Exitoso', '', 'success')
+          }
           })
           .catch((error) => {
             console.log(error)
